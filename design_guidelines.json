@@ -1,0 +1,165 @@
+{
+  "theme_and_archetype": {
+    "domain": "Real Estate / Rental Marketplace",
+    "theme": "LIGHT",
+    "archetype": "Archetype 1: Organic & Earthy",
+    "vibe": "Trustworthy, grounded, warm, premium. Moving away from cold, clinical SaaS blues. Designing for trust (KYC, payments) and home (warmth).",
+    "core_principles": [
+      "Trust via Clarity: Heavy use of white space, crisp typography, and unambiguous verified badges.",
+      "Tactile Surfaces: Use flat cards with 1px borders instead of generic drop shadows to feel grounded and solid.",
+      "Contextual Friction: Easy property discovery, but intentional friction (blur, premium UI) for unlocking contacts to validate payment."
+    ]
+  },
+  "typography": {
+    "primary_heading_font": "Cabinet Grotesk",
+    "primary_body_font": "Manrope",
+    "fallback_google_fonts": "Outfit (Heading) + Manrope (Body)",
+    "font_loading_instructions": "Import Cabinet Grotesk from Fontshare (https://api.fontshare.com/v2/css?f[]=cabinet-grotesk@100,200,300,400,500,700,800,900&display=swap). Use Manrope from Google Fonts.",
+    "hierarchy": {
+      "h1_hero": "text-5xl sm:text-6xl font-black tracking-tighter leading-none text-forest",
+      "h2_section": "text-3xl sm:text-4xl font-bold tracking-tight text-forest",
+      "h3_card": "text-xl font-semibold tracking-tight text-forest",
+      "body_base": "text-base font-medium text-forest/80 leading-relaxed",
+      "labels_overlines": "text-xs font-bold uppercase tracking-[0.2em] text-forest/60"
+    }
+  },
+  "color_palette": {
+    "backgrounds": {
+      "base": "#FAF9F6",
+      "surface": "#FFFFFF",
+      "overlay_glass": "bg-white/70 backdrop-blur-xl"
+    },
+    "text": {
+      "primary": "#1F2B24",
+      "secondary": "#4A5550",
+      "muted": "#8A948F"
+    },
+    "brand_and_accents": {
+      "primary_cta": "#D26955",
+      "primary_cta_hover": "#B85542",
+      "success_verified": "#5C7658",
+      "success_bg": "#EEF2ED",
+      "warning_pending": "#D99E48",
+      "error_rejected": "#C04F4F",
+      "borders": "#E6E2D8"
+    }
+  },
+  "spacing_and_layout": {
+    "general": "Generous Spacing Philosophy. Default section padding is py-24. Container max-width is max-w-7xl.",
+    "grids": {
+      "marketing_bento": "grid-cols-1 md:grid-cols-12 gap-8. Hero images span 8 cols, text spans 4 cols.",
+      "property_gallery": "grid-cols-1 md:grid-cols-12 gap-4. Main image col-span-8 row-span-2, side images col-span-4 row-span-1.",
+      "dashboard_control_room": "grid-cols-1 md:grid-cols-12. Sidebar col-span-3, Main content col-span-9. Tight gaps (gap-6)."
+    },
+    "border_radius": "Subtle. Use rounded-xl for main containers, rounded-md for inner elements like buttons and inputs. Avoid completely pill-shaped buttons unless it's a floating search bar."
+  },
+  "components_system": {
+    "buttons": {
+      "primary": "bg-[#D26955] text-white hover:bg-[#B85542] rounded-md px-6 py-3 font-semibold transition-all duration-200",
+      "secondary": "bg-white text-[#1F2B24] border border-[#E6E2D8] hover:bg-[#FAF9F6] rounded-md px-6 py-3 font-semibold transition-all",
+      "ghost": "hover:bg-[#EEF2ED] text-[#5C7658] rounded-md px-4 py-2 font-medium"
+    },
+    "cards_property": {
+      "style": "Cardless aesthetic. Flat background, no outer shadow. border border-[#E6E2D8] rounded-xl overflow-hidden hover:-translate-y-1 hover:shadow-lg transition-all duration-300",
+      "image_wrapper": "aspect-[4/3] overflow-hidden bg-gray-100",
+      "content": "p-5"
+    },
+    "locked_contact_module": {
+      "style": "relative overflow-hidden rounded-xl border border-[#E6E2D8] bg-[#FAF9F6] p-6",
+      "blur_layer": "absolute inset-0 backdrop-blur-md bg-white/60 flex flex-col items-center justify-center z-10",
+      "unlock_cta": "bg-[#1F2B24] text-white shadow-xl flex gap-2 items-center px-6 py-3 rounded-md hover:bg-black transition-all"
+    },
+    "kyc_badge": {
+      "style": "inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-[#EEF2ED] text-[#5C7658] text-xs font-bold uppercase tracking-wider border border-[#5C7658]/20"
+    },
+    "inputs_and_forms": {
+      "style": "bg-white border border-[#E6E2D8] rounded-md px-4 py-3 focus:ring-2 focus:ring-[#D26955]/20 focus:border-[#D26955] text-[#1F2B24] placeholder:text-[#8A948F]"
+    }
+  },
+  "page_layouts": {
+    "landing_and_search": {
+      "header": "Sticky crystal glass nav (bg-white/80 backdrop-blur-xl border-b border-[#E6E2D8]).",
+      "hero": "Left-aligned massive typography ('Find a home, not a hustle'). Right-aligned dynamic masonry of property images. Floating search bar overlapping the bottom of the hero.",
+      "search_filters": "Horizontal scrollable pill-based filters (City, Rent, BHK, Furnishing) below the search bar.",
+      "property_list": "CSS Grid (grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4) with generous gap-8."
+    },
+    "property_detail": {
+      "layout": "Top: Breadcrumbs. Next: Tetris Grid Image Gallery (Max height 60vh to prevent overwhelming). Below: 2-column layout (col-span-8 for descriptions, amenities, map; col-span-4 for sticky Action Card).",
+      "action_card": "Sticky sidebar card containing Rent, Security Deposit, Visit Booking Calendar button, and the Razorpay Locked Contact Module."
+    },
+    "owner_listing_wizard": {
+      "layout": "Minimalist centered form (max-w-2xl). Step-by-step UI.",
+      "steps": "1. Essentials (Type, Title, Rent, Address). 2. Photos (Drag & Drop area). 3. Details (BHK, Furnishing).",
+      "note": "Optional details (Amenities, Rules) moved to a 'Enhance Listing' post-publish state in the Owner Dashboard."
+    },
+    "kyc_verification_flow": {
+      "layout": "Dedicated focus page (no main nav, just a 'Back to Dashboard' link). High-trust UI.",
+      "elements": "File upload zones with dashed borders. Secure lock icons. Live camera capture block for selfie."
+    },
+    "dashboards_tenant_owner": {
+      "layout": "Sidebar + Main content.",
+      "tenant_tabs": "Saved Properties, Unlocked Contacts, Visit Requests, Subscription Status.",
+      "owner_tabs": "My Properties, Visit Inbox, KYC Status.",
+      "cards": "Listings shown in dense list view (row-based) rather than grid to optimize for data scanning."
+    },
+    "admin_panel": {
+      "layout": "Dense Control Room Grid. High contrast sidebar.",
+      "features": "Tables (Shadcn) for Properties (Approve/Reject/Suspend), KYC Reviews, Users, Payments.",
+      "status": "Use bright pill badges for quick scanning (Pending = Yellow, Approved = Green, Rejected = Red)."
+    },
+    "premium_pricing": {
+      "layout": "Bento layout.",
+      "cards": "Yearly plan (₹799) is the hero card spanning full width, dark theme (bg-[#1F2B24] text-white) with a subtle 'Tracing Beam' border effect. Monthly (₹99) and 3-Month (₹249) cards sit side-by-side below in light theme."
+    }
+  },
+  "media_and_images": {
+    "hero_backgrounds": [
+      {
+        "url": "https://images.pexels.com/photos/9308434/pexels-photo-9308434.jpeg",
+        "category": "Hero Architecture",
+        "description": "Modern apartment building exterior, use in landing page hero right-side bento"
+      },
+      {
+        "url": "https://images.unsplash.com/photo-1542559204-832ecc9bbb88",
+        "category": "Hero Architecture Alternative",
+        "description": "White concrete building, high-end feel"
+      }
+    ],
+    "interiors": [
+      {
+        "url": "https://images.pexels.com/photos/7148779/pexels-photo-7148779.jpeg",
+        "category": "Property Example / Mock",
+        "description": "Spacious contemporary living room, use in property detail mock or featured cards"
+      },
+      {
+        "url": "https://images.pexels.com/photos/8438253/pexels-photo-8438253.jpeg",
+        "category": "Property Example / Mock",
+        "description": "Elegant indoor setting, cozy"
+      }
+    ],
+    "people_avatars": [
+      {
+        "url": "https://images.pexels.com/photos/9171219/pexels-photo-9171219.jpeg",
+        "category": "Owner / Agent Avatar",
+        "description": "Young Indian professional, use in Owner Profile or Chat UI"
+      },
+      {
+        "url": "https://images.pexels.com/photos/36061432/pexels-photo-36061432.jpeg",
+        "category": "Tenant Avatar",
+        "description": "Indian family, use in Testimonials or Tenant Profile"
+      }
+    ]
+  },
+  "accessibility_and_testing": {
+    "testing_attributes": "All interactive elements MUST include a data-testid attribute (e.g., data-testid='unlock-contact-button', data-testid='listing-submit').",
+    "contrast": "Ensure white text on #D26955 meets APCA standards. Deep green text on #FAF9F6 ensures high legibility.",
+    "hover_states": "All buttons and cards must have explicitly defined hover states (e.g., hover:bg-[#B85542] hover:-translate-y-1)."
+  },
+  "instructions_to_main_agent": [
+    "Do NOT use 'Inter', 'Roboto', or 'Open Sans'. Load 'Cabinet Grotesk' via Fontshare API and 'Manrope' via Google Fonts.",
+    "Implement the 'Locked Contact Module' exactly as described using glassmorphism. Never leave the unblurred text in the DOM if payment is not made (security).",
+    "Use Shadcn UI extensively for Admin/Dashboard tables, dialogs, calendars, and forms, but customize the border-radius and colors to match the Earthy theme.",
+    "Ensure all API integrations for Razorpay, Auth, and listings are fully functional (no mock APIs, but use placeholder text/images ONLY from the provided media_and_images URLs).",
+    "Property Status must strictly enforce: Pending (default) -> Admin Review -> Approved/Rejected/Suspended."
+  ]
+}
