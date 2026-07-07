@@ -1,0 +1,38 @@
+{
+  "summary": "First iteration full-stack testing for Rentily. Backend: 30/30 pytest tests pass covering health, auth (tenant/owner/admin register+login+me), duplicate/invalid guards, file upload+fetch via Emergent Object Storage, KYC submit + admin approve flow, property creation with Claude Sonnet 4.5 AI verifier, role guards, public/owner/tenant contact visibility, admin stats+actions (approve/reject/request_info), payments config (configured=false), payments/order returns 503 gracefully for both unlock and premium (Razorpay keys empty), visit booking + owner confirm, and chat send/thread/read. Frontend: landing hero + filters + live listings load, admin login redirects to /admin (all 4 tabs render), tenant register+login redirects to /dashboard/tenant, pricing page shows Monthly/Quarterly/Yearly cards with correct pricing and a warning banner about Razorpay not configured, property detail shows locked-contact module, clicking Unlock for ₹29 triggers /api/payments/order 503 and shows toast 'Payments not yet configured. Contact admin.' All critical flows work.",
+  "backend_issues": {
+    "critical": [],
+    "minor": [
+      {"endpoint": "GET /api/properties (unauthenticated)", "issue": "`contact_unlocked` returned as null instead of false for anonymous viewers. Root cause in routes_properties.py _sanitize: `can_see_contact = unlocked or (viewer and (...))` — when viewer is None the expression evaluates to None (falsy) but not boolean. Cosmetic; contact fields are still correctly stripped. Suggest: wrap in bool() or use `viewer is not None and ...`."},
+      {"endpoint": "POST /api/auth/register", "issue": "Emails are lowercased server-side which is correct, but not documented; client-side comparing exact case could be surprising."}
+    ]
+  },
+  "frontend_issues": {
+    "ui_bugs": [],
+    "integration_issues": [],
+    "design_issues": [
+      {"screen": "PropertyDetail", "issues": ["Main photo shows gray placeholder — expected because backend test uploaded a synthetic JPEG that doesn't render (test artifact, not a real bug)."]}
+    ]
+  },
+  "test_report_links": ["/app/backend/tests/backend_test.py", "/app/test_reports/pytest/pytest_results.xml"],
+  "action_items": [
+    "OPTIONAL: coerce contact_unlocked to strict bool in routes_properties.py _sanitize (`can_see_contact = bool(unlocked or (viewer and ...))`) so JSON returns false instead of null for anonymous viewers.",
+    "No blocking issues. Main agent may proceed."
+  ],
+  "critical_code_review_comments": [
+    "Payments module correctly reads Razorpay keys at call time from env — supports zero-restart activation once admin adds keys. Good.",
+    "_sanitize returns contact_unlocked as None for anonymous viewers due to short-circuit — coerce to bool.",
+    "AI verifier is invoked synchronously inside POST /properties (typically 3-6s). Acceptable for MVP; consider background task for scale.",
+    "Storage layer initialises lazily and caches storage_key in-process — good; but if key rotates the process must restart.",
+    "Chat threads endpoint uses aggregation without index on thread_id+created_at descending — an index is created on thread_id+created_at asc; consider composite for hot path.",
+    "routes_visits allows tenant to cancel but has no notify hook — out of scope for MVP but noted."
+  ],
+  "updated_files": ["/app/backend/tests/backend_test.py"],
+  "success_rate": {"backend": "100% (30/30)", "frontend": "100% of critical flows verified"},
+  "test_credentials": "Admin: admin@rentily.in / Admin@12345. Test users are created per-run with TEST_ / ui_ prefixes.",
+  "seed_data_creation": "Backend tests create TEST_tenant_*, TEST_owner_*, TEST_tenant2_* users, upload dummy JPEGs, submit+approve KYC for owner, create one approved property with AI verdict, create a visit + chat message. Frontend test additionally creates one ui_tenant_* account.",
+  "retest_needed": false,
+  "should_main_agent_self_test": true,
+  "context_for_next_testing_agent": "Backend tests live at /app/backend/tests/backend_test.py and can be re-run any time with `pytest backend/tests/ -v`. They are idempotent per-run (UUID emails). Razorpay keys are intentionally empty; payments/order MUST return 503 with 'Payments not configured' — do not treat as bug. AI verifier calls Claude Sonnet 4.5; can be slow (~3-6s). Frontend uses /api prefix + REACT_APP_BACKEND_URL correctly. Admin panel data-testids: admin-tab-properties/kyc/users/payments. Pricing: plan-monthly-card / plan-quarterly-card / plan-yearly-card + buy-yearly. Property detail unlock button: unlock-contact-button.",
+  "rca of the issue": "Minor bug: `contact_unlocked=null` for anonymous listings — RCA: Python truthy-evaluation of `False or (None and X)` yields None. Fix: wrap in bool() or use explicit `viewer is not None`. No functional impact — contact fields are still hidden."
+}
