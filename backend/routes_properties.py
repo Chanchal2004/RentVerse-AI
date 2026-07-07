@@ -11,13 +11,13 @@ router = APIRouter(prefix="/properties", tags=["properties"])
 def _sanitize(prop: dict, viewer: Optional[dict], unlocked: bool) -> dict:
     """Hide owner contact unless unlocked/owner/admin."""
     p = {k: v for k, v in prop.items() if k != "_id"}
-    can_see_contact = unlocked or (
-        viewer and (viewer["id"] == prop.get("owner_id") or viewer["role"] == "admin")
+    can_see_contact = bool(unlocked) or bool(
+        viewer is not None and (viewer["id"] == prop.get("owner_id") or viewer["role"] == "admin")
     )
     if not can_see_contact:
         p["contact_phone"] = None
         p["contact_email"] = None
-    p["contact_unlocked"] = can_see_contact
+    p["contact_unlocked"] = bool(can_see_contact)
     return p
 
 
